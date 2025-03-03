@@ -1,0 +1,118 @@
+[gd_scene load_steps=15 format=3 uid="uid://bqmwfwil3xsbd"]
+
+[ext_resource type="Texture2D" uid="uid://b00skixf3an5k" path="res://Assets/AIScene/BG.png" id="1_8njfa"]
+[ext_resource type="Texture2D" uid="uid://bnufdec3pg6sq" path="res://Assets/Customers/Girl.png" id="2_8oe20"]
+[ext_resource type="Texture2D" uid="uid://bp7eqgidw4j3q" path="res://Assets/Customers/Guy.png" id="3_8v3dw"]
+[ext_resource type="Texture2D" uid="uid://c0ie46gf61qwa" path="res://Assets/AIScene/ChaatBhandar-FG.png" id="4_otvuq"]
+[ext_resource type="Script" path="res://Scenes/game_manager.gd" id="5_7dd4r"]
+[ext_resource type="PackedScene" uid="uid://yey244wds8c1" path="res://Scenes/speech.tscn" id="6_md0xy"]
+[ext_resource type="Script" path="res://Scenes/ingredient_handler.gd" id="7_tg0cg"]
+[ext_resource type="FontFile" uid="uid://dci25syrnajah" path="res://Assets/SpeechBubble/Minecraft.ttf" id="8_c8a25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rr5gm"]
+size = Vector2(284.5, 187)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apgs2"]
+size = Vector2(252, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22aeu"]
+size = Vector2(288, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl7bh"]
+size = Vector2(321, 261)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_722cl"]
+size = Vector2(208, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krvmn"]
+size = Vector2(101, 84)
+
+[node name="Main" type="CanvasLayer"]
+
+[node name="BG" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(640, 360)
+texture = ExtResource("1_8njfa")
+
+[node name="Girl" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(257, 286)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_8oe20")
+
+[node name="Guy" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(509, 283)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_8v3dw")
+
+[node name="FG" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(640, 360)
+texture = ExtResource("4_otvuq")
+
+[node name="GameManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("5_7dd4r")
+
+[node name="Speech" parent="." instance=ExtResource("6_md0xy")]
+position = Vector2(394, 126)
+
+[node name="IngredientHandler" type="Node" parent="."]
+script = ExtResource("7_tg0cg")
+
+[node name="Puri" type="Area2D" parent="IngredientHandler"]
+position = Vector2(200, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Puri"]
+position = Vector2(6.5, -74.5)
+shape = SubResource("RectangleShape2D_rr5gm")
+
+[node name="Chole" type="Area2D" parent="IngredientHandler"]
+position = Vector2(200, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Chole"]
+position = Vector2(317, 405)
+shape = SubResource("RectangleShape2D_apgs2")
+
+[node name="Aalu" type="Area2D" parent="IngredientHandler"]
+position = Vector2(200, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Aalu"]
+position = Vector2(611, 409)
+shape = SubResource("RectangleShape2D_22aeu")
+
+[node name="Pani" type="Area2D" parent="IngredientHandler"]
+position = Vector2(1132, 497)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Pani"]
+position = Vector2(-13.5, 43.5)
+shape = SubResource("RectangleShape2D_xl7bh")
+
+[node name="Onion" type="Area2D" parent="IngredientHandler"]
+position = Vector2(1077, 302)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Onion"]
+position = Vector2(8, 14.5)
+shape = SubResource("RectangleShape2D_722cl")
+
+[node name="Mitha" type="Area2D" parent="IngredientHandler"]
+position = Vector2(884, 338)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IngredientHandler/Mitha"]
+position = Vector2(7.5, 9)
+shape = SubResource("RectangleShape2D_krvmn")
+
+[node name="ActiveIngredient" type="Panel" parent="IngredientHandler"]
+texture_filter = 1
+offset_left = 721.0
+offset_top = 307.0
+offset_right = 820.0
+offset_bottom = 382.0
+
+[node name="Label" type="Label" parent="IngredientHandler/ActiveIngredient"]
+offset_right = 100.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_c8a25")
+text = "Puri"

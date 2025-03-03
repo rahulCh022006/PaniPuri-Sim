@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://yey244wds8c1"]
+
+[ext_resource type="Texture2D" uid="uid://dv5qljjhs4viw" path="res://Assets/SpeechBubble/Speech.png" id="1_tlsxe"]
+[ext_resource type="FontFile" uid="uid://dci25syrnajah" path="res://Assets/SpeechBubble/Minecraft.ttf" id="2_x1r68"]
+
+[node name="Speech" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tlsxe")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -160.0
+offset_top = -115.0
+offset_right = 226.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_x1r68")
+theme_override_font_sizes/font_size = 136
+text = "Mitha"

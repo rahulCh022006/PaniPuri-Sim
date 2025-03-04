@@ -1,15 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://bqmwfwil3xsbd"]
+[gd_scene load_steps=21 format=3 uid="uid://bqmwfwil3xsbd"]
 
 [ext_resource type="Texture2D" uid="uid://b00skixf3an5k" path="res://Assets/AIScene/BG.png" id="1_8njfa"]
 [ext_resource type="Texture2D" uid="uid://bnufdec3pg6sq" path="res://Assets/Customers/Girl.png" id="2_8oe20"]
-[ext_resource type="Texture2D" uid="uid://bp7eqgidw4j3q" path="res://Assets/Customers/Guy.png" id="3_8v3dw"]
-[ext_resource type="Script" path="res://Scenes/customer_manager.gd" id="3_bbaes"]
+[ext_resource type="Script" uid="uid://duyjny4hfsp8f" path="res://Scenes/customer_manager.gd" id="3_bbaes"]
 [ext_resource type="Texture2D" uid="uid://c0ie46gf61qwa" path="res://Assets/AIScene/ChaatBhandar-FG.png" id="4_otvuq"]
-[ext_resource type="Script" path="res://Scenes/game_manager.gd" id="5_7dd4r"]
+[ext_resource type="Script" uid="uid://c8ehnwov7oiyb" path="res://Scenes/game_manager.gd" id="5_7dd4r"]
 [ext_resource type="PackedScene" uid="uid://yey244wds8c1" path="res://Scenes/speech.tscn" id="6_md0xy"]
-[ext_resource type="Script" path="res://Scenes/ingredient_handler.gd" id="7_tg0cg"]
-[ext_resource type="Script" path="res://Scenes/ingredient_script.gd" id="8_5l5s4"]
+[ext_resource type="Script" uid="uid://nwlxbl52rdmb" path="res://Scenes/ingredient_handler.gd" id="7_tg0cg"]
+[ext_resource type="Script" uid="uid://dr441w3bm5rsy" path="res://Scenes/ingredient_script.gd" id="8_5l5s4"]
 [ext_resource type="FontFile" uid="uid://dci25syrnajah" path="res://Assets/SpeechBubble/Minecraft.ttf" id="8_c8a25"]
+[ext_resource type="Texture2D" uid="uid://b5rc8ato4sui3" path="res://Assets/UI/Menu.png" id="10_4kpch"]
+[ext_resource type="Texture2D" uid="uid://bgdokkpv2rqqf" path="res://Assets/UI/Pause.png" id="10_bmxlf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opqcw"]
 size = Vector2(298.333, 463.333)
@@ -34,6 +35,9 @@ size = Vector2(101, 84)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rkwo"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grg3l"]
+bg_color = Color(0.364706, 0.364706, 0.364706, 0)
 
 [node name="Main" type="CanvasLayer"]
 
@@ -60,11 +64,16 @@ shape = SubResource("RectangleShape2D_opqcw")
 position = Vector2(228.333, -266.667)
 scale = Vector2(0.333333, 0.333333)
 
-[node name="Guy" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(509, 283)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_8v3dw")
+[node name="Label" parent="Customer/Speech" index="0"]
+offset_left = -259.999
+offset_top = -129.999
+offset_right = 260.001
+offset_bottom = 260.001
+text = "Mix
+Puri"
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
 
 [node name="FG" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -141,5 +150,62 @@ offset_bottom = 75.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("8_c8a25")
 text = "Puri"
+
+[node name="PauseButton" type="Button" parent="."]
+texture_filter = 1
+offset_right = 85.0
+offset_bottom = 85.0
+icon = ExtResource("10_bmxlf")
+flat = true
+expand_icon = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DarkLight" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.396078)
+
+[node name="MainMenu" type="TextureRect" parent="UI"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -33.0
+offset_right = 23.43
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(6.27, 6.27)
+pivot_offset = Vector2(22.715, 33)
+texture = ExtResource("10_4kpch")
+
+[node name="Start" type="Button" parent="UI/MainMenu"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 10.0
+offset_right = 38.0
+offset_bottom = 24.0
+pivot_offset = Vector2(15.5, 7)
+theme_override_styles/normal = SubResource("StyleBoxFlat_grg3l")
+
+[node name="Exit" type="Button" parent="UI/MainMenu"]
+layout_mode = 0
+offset_left = 6.97098
+offset_top = 41.7719
+offset_right = 37.971
+offset_bottom = 55.7719
+pivot_offset = Vector2(15.5, 7)
+theme_override_styles/normal = SubResource("StyleBoxFlat_grg3l")
+
+[connection signal="pressed" from="PauseButton" to="GameManager" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UI/MainMenu/Start" to="GameManager" method="_on_start_pressed"]
+[connection signal="pressed" from="UI/MainMenu/Exit" to="GameManager" method="_on_exit_pressed"]
 
 [editable path="Customer/Speech"]

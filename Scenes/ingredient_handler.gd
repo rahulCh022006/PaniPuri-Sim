@@ -1,16 +1,15 @@
 extends Node
 
+#Node
 @onready var active_ingredients: Label = $Panel/ActiveIngredients
+
+#Variables
 @onready var active_puri: Array 
 
 func _ready() -> void:
 	for ingredient in get_tree().get_nodes_in_group("Ingredients"):
 		ingredient.connect("clicked", Callable(self, "update_ingredients"))
 	active_ingredients.text = "Null"
-
-func ingredient_match():
-	pass
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pani"):

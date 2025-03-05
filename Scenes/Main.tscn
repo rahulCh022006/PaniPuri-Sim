@@ -1,16 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://bqmwfwil3xsbd"]
+[gd_scene load_steps=24 format=3 uid="uid://bqmwfwil3xsbd"]
 
 [ext_resource type="Texture2D" uid="uid://b00skixf3an5k" path="res://Assets/AIScene/BG.png" id="1_8njfa"]
 [ext_resource type="Texture2D" uid="uid://bnufdec3pg6sq" path="res://Assets/Customers/Girl.png" id="2_8oe20"]
 [ext_resource type="Script" uid="uid://duyjny4hfsp8f" path="res://Scenes/customer_manager.gd" id="3_bbaes"]
 [ext_resource type="Texture2D" uid="uid://c0ie46gf61qwa" path="res://Assets/AIScene/ChaatBhandar-FG.png" id="4_otvuq"]
 [ext_resource type="Script" uid="uid://c8ehnwov7oiyb" path="res://Scenes/game_manager.gd" id="5_7dd4r"]
+[ext_resource type="Texture2D" uid="uid://6bxhbses7b4g" path="res://Assets/UI/Tick.png" id="5_grg3l"]
+[ext_resource type="Texture2D" uid="uid://cxeiq8cxphner" path="res://Assets/UI/Cross.png" id="6_1p5hy"]
 [ext_resource type="PackedScene" uid="uid://yey244wds8c1" path="res://Scenes/speech.tscn" id="6_md0xy"]
 [ext_resource type="Script" uid="uid://nwlxbl52rdmb" path="res://Scenes/ingredient_handler.gd" id="7_tg0cg"]
 [ext_resource type="Script" uid="uid://dr441w3bm5rsy" path="res://Scenes/ingredient_script.gd" id="8_5l5s4"]
-[ext_resource type="FontFile" uid="uid://dci25syrnajah" path="res://Assets/SpeechBubble/Minecraft.ttf" id="8_c8a25"]
+[ext_resource type="FontFile" uid="uid://dci25syrnajah" path="res://Assets/Fonts/Minecraft.ttf" id="8_c8a25"]
 [ext_resource type="Texture2D" uid="uid://b5rc8ato4sui3" path="res://Assets/UI/Menu.png" id="10_4kpch"]
 [ext_resource type="Texture2D" uid="uid://bgdokkpv2rqqf" path="res://Assets/UI/Pause.png" id="10_bmxlf"]
+[ext_resource type="FontFile" uid="uid://dm3e062htt10b" path="res://Assets/Fonts/04B_30__.TTF" id="13_frkhe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opqcw"]
 size = Vector2(298.333, 463.333)
@@ -75,6 +78,41 @@ horizontal_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
+[node name="CorrectSymbol" type="TextureRect" parent="Customer/Speech"]
+visible = false
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.272
+anchor_top = 0.225
+anchor_right = 0.751
+anchor_bottom = 0.685
+offset_left = -3472.14
+offset_top = -2490.2
+offset_right = 2784.31
+offset_bottom = 1978.28
+scale = Vector2(0.05, 0.05)
+pivot_offset = Vector2(3293, 2352)
+texture = ExtResource("5_grg3l")
+
+[node name="WrongSymbol" type="TextureRect" parent="Customer/Speech"]
+visible = false
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.126
+anchor_right = 0.764
+anchor_bottom = 0.769
+offset_left = -2752.37
+offset_top = -2664.51
+offset_right = 2064.37
+offset_bottom = 1710.27
+scale = Vector2(0.06, 0.06)
+pivot_offset = Vector2(2590, 2590)
+texture = ExtResource("6_1p5hy")
+
+[node name="OrderTimer" type="Timer" parent="Customer/Speech"]
+one_shot = true
+
 [node name="FG" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(640, 360)
@@ -83,6 +121,24 @@ texture = ExtResource("4_otvuq")
 [node name="GameManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("5_7dd4r")
+
+[node name="ScoreBoard" type="Label" parent="GameManager"]
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -383.0
+offset_bottom = 83.0
+grow_horizontal = 0
+pivot_offset = Vector2(88, 41.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -15
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("13_frkhe")
+theme_override_font_sizes/font_size = 61
+text = "Score:  "
 
 [node name="IngredientHandler" type="Node" parent="."]
 script = ExtResource("7_tg0cg")
@@ -160,6 +216,7 @@ flat = true
 expand_icon = true
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="DarkLight" type="ColorRect" parent="UI"]
 anchors_preset = 15
@@ -204,6 +261,7 @@ offset_bottom = 55.7719
 pivot_offset = Vector2(15.5, 7)
 theme_override_styles/normal = SubResource("StyleBoxFlat_grg3l")
 
+[connection signal="timeout" from="Customer/Speech/OrderTimer" to="Customer/CustomerManager" method="_on_order_timer_timeout"]
 [connection signal="pressed" from="PauseButton" to="GameManager" method="_on_pause_button_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Start" to="GameManager" method="_on_start_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Exit" to="GameManager" method="_on_exit_pressed"]

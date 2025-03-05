@@ -1,8 +1,15 @@
 extends Area2D
 
+#NodeVariables
 @export var ingredient_handler: NodePath
 @onready var label: Label = $"../Speech/Label"
+@onready var correct_symbol: TextureRect = $"../Speech/CorrectSymbol"
+@onready var order_timer: Timer = $"../Speech/OrderTimer"
+@onready var wrong_symbol: TextureRect = $"../Speech/WrongSymbol"
 
+
+#Signals
+signal order_complete
 #Different Puris
 var different_puris : Dictionary = {
 	"Mitha Puri": ["Puri","Chole","Mitha"],
@@ -30,8 +37,29 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 func check_order(active_puri, ingredient_handler_node):
 	if active_puri == active_order:
 		print("Correct Order")
+		order_is_correct()
 		ingredient_handler_node.clear_ingredients()
+		emit_signal("order_complete")
 		randomize_order()
 	else:
 		print("Wrong dummbo")
+		order_is_incorrect()
 		ingredient_handler_node.clear_ingredients()
+
+func order_is_correct():
+	correct_symbol.visible = true
+	label.visible = false
+	order_timer.start()
+
+func order_is_incorrect():
+	wrong_symbol.visible = true
+	label.visible = false
+	order_timer.start()
+
+func reset_symbols():
+	correct_symbol.visible = false
+	wrong_symbol.visible = false
+	label.visible = true
+
+func _on_order_timer_timeout() -> void:
+	reset_symbols()

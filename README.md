@@ -9,9 +9,6 @@ Pani Puri Simulator is a **fast-paced casual cooking game** inspired by Indian s
 - **Score Tracking & Feedback** – Earn points for correct orders, and see visual feedback for mistakes.
 - **Simple & Intuitive UI** – Start, Restart, and Exit options for a smooth experience.
 
-## 📸 Screenshots
-*(Add some GIFs or images of your game here to make it visually appealing!)*
-
 ## 🎮 How to Play
 1. Click on ingredients to prepare the **correct** Pani Puri.
 2. Serve customers by matching their **exact** order.
